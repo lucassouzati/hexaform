@@ -9,3 +9,5 @@ variable "desired_size" {}
 variable "max_size" {}
 
 variable "min_size" {}
+
+variable "nodes_instances_type" {}

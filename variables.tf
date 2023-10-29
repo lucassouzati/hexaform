@@ -1,5 +1,5 @@
 variable "cluster_name" {
-  default = "k8s-demo"
+  default = "hexaform"
 }
 
 variable "region" {
@@ -7,12 +7,12 @@ variable "region" {
 }
 
 variable "kubernetes_version" {
-  default = "1.19"
+  default = "1.27"
 }
 
-variable "nodes_instances_sizes" {
+variable "nodes_instances_type" {
   default = [
-    "t1.micro"
+    "t2.medium"
   ]
 }
 
@@ -39,3 +39,28 @@ variable "auto_scale_cpu" {
     scale_down_remove     = -1
   }
 }
+
+variable "db_name" {
+  default = "hexabase"
+}
+
+variable "db_instance_type" {
+  default = "db.t3.micro"
+}
+
+variable "db_allocated_storage" {
+  default = 5
+}
+
+variable "db_engine" {
+  default = "postgres"
+}
+
+variable "db_version" {
+  default = "12.5"
+}
+
+variable "db_username" {
+  default = "hexabase"
+}
+
