@@ -9,3 +9,7 @@ output "private_subnet_1a" {
 output "private_subnet_1b" {
   value = aws_subnet.eks_subnet_private_1b.id
 }
+
+output "default_security_group_id" {
+  value = aws_vpc.eks_vpc.default_security_group_id
+}
