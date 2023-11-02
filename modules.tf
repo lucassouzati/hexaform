@@ -1,3 +1,7 @@
+locals {
+  parameter_prefix = "/${var.env}/${var.cluster_name}"
+}
+
 module "network" {
   source = "./modules/network"
 
@@ -28,7 +32,9 @@ module "node" {
   max_size = var.auto_scale_options.max
 
   nodes_instances_type = var.nodes_instances_type
-
+  parameter_prefix = local.parameter_prefix
+  account_id = data.aws_caller_identity.current.account_id
+  region = var.region
 }
 
 module "database" {
@@ -42,3 +48,14 @@ module "database" {
   vpc_id = module.network.vpc_id
   default_security_group_id = module.network.default_security_group_id
 }
+
+module "env" {
+  source = "./modules/env"
+  db_host = module.database.db_host
+  db_database = module.database.db_database
+  db_username = module.database.db_username
+  db_password = module.database.db_password
+  parameter_prefix = local.parameter_prefix
+}
+
+data "aws_caller_identity" "current" {}

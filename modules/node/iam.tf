@@ -28,3 +28,27 @@ resource "aws_iam_role_policy_attachment" "eks_AmazonEC2ContainerRegistryReadOnl
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role       = aws_iam_role.eks_node_role.name
 }
+
+resource "aws_iam_policy" "eks_node_ssm_access" {
+  name        = format("%s-node-role", var.cluster_name)
+  description = "Permite que os nodes do EKS acessem parâmetros específicos no SSM Parameter Store"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Action   = ["ssm:GetParameter", "ssm:GetParameters", "ssm:DescribeParameters"],
+        Resource = "arn:aws:ssm:${var.region}:${var.account_id}:parameter${var.parameter_prefix}/*"
+        Effect   = "Allow"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "eks_nodes_ssm" {
+  policy_arn = aws_iam_policy.eks_node_ssm_access.arn
+  role       = aws_iam_role.eks_node_role.name
+}
+
+
+

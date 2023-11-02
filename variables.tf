@@ -1,3 +1,7 @@
+variable "env"{
+  default = "dev"
+}
+
 variable "cluster_name" {
   default = "hexaform"
 }

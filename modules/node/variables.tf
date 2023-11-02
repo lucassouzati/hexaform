@@ -11,3 +11,9 @@ variable "max_size" {}
 variable "min_size" {}
 
 variable "nodes_instances_type" {}
+
+variable "parameter_prefix" {}
+
+variable "account_id" {}
+
+variable "region" {}
