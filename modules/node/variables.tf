@@ -14,6 +14,15 @@ variable "nodes_instances_type" {}
 
 variable "parameter_prefix" {}
 
-variable "account_id" {}
+# variable "account_id" {}
 
 variable "region" {}
+
+variable "eks_url" {}
+
+variable "cluster_id" {
+  description = "The EKS cluster ID"
+  type        = string
+}
+
+variable "issuer" {}
