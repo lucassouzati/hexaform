@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+spec:
+  replicas: {{ .Values.api.replicas }}
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      volumes:
+        - name: app-volume
+          emptyDir: {}
+        - name: secret-provider
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "secret-provider"
+      containers:
+        - name: c-api-deployment
+          image: {{ .Values.api.image }}
+          ports:
+            - containerPort: 3000
+          command: ['/bin/sh', '-c']
+          args:
+            - './wait-for-it.sh postgres-service:5432 -- ./start.sh'
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: my-k8s-secrets
+                  key: DATABASE_URL
+          volumeMounts:
+            - name: app-volume
+              mountPath: /home/node/app/vol
+            - name: secret-provider
+              mountPath: "/mnt/secrets-store"
+              
+      
+        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-lb-service
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      nodePort: 31000
+      targetPort: 3000
+  selector:
+    app: api
