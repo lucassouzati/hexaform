@@ -22,3 +22,17 @@ resource "aws_ssm_parameter" "db_password" {
   value = var.db_password
   key_id = "alias/aws/ssm"
 }
+
+resource "aws_ssm_parameter" "database_url" {
+  name  = "${var.parameter_prefix}/database_url"
+  type  = "String"
+  value = format("postgresql://%s:%s@%s/%s", 
+                  var.db_username,  
+                  var.db_password, 
+                  var.db_host, 
+                  var.db_database)
+}
+
+//DATABASE_URL="postgresql://userpg:mysecretpassword@postgres:5432/hexafood"
+
+
