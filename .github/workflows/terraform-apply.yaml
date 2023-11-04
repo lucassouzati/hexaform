@@ -42,3 +42,52 @@ jobs:
         with:
           run: ${{ steps.apply-run.outputs.run_id }}
           comment: "Apply Run from GitHub Actions CI ${{ github.sha }}"
+      
+      - name: Generate kubeconfig
+        id: get_kubeconfig
+        run: |
+          echo "::set-output name=kubeconfig::$(terraform output -raw kubeconfig)"
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Update kubeconfig secret
+        env:
+          KUBECONFIG_CONTENT: ${{ steps.get_kubeconfig.outputs.kubeconfig }}
+          REPOSITORY: ${{ github.repository }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Convertendo o conteúdo do kubeconfig para base64
+          KUBECONFIG_ENCODED=$(echo -n "$KUBECONFIG_CONTENT" | base64)
+
+          # Definindo o nome da secret
+          SECRET_NAME="KUBECONFIG"
+
+          # Payload JSON para a API do GitHub
+          PAYLOAD=$(echo -n "{\"encrypted_value\":\"${KUBECONFIG_ENCODED}\",\"key_id\":\"$(curl -s -H "Authorization: token ${GITHUB_TOKEN}" https://api.github.com/repos/${REPOSITORY}/actions/secrets/public-key | jq -r .key_id)\"}")
+
+          # Fazendo a chamada à API para criar ou atualizar a secret
+          curl \
+            -X PUT \
+            -H "Authorization: token ${GITHUB_TOKEN}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/${REPOSITORY}/actions/secrets/${SECRET_NAME}" \
+            -d "$PAYLOAD"
+
+  setup-and-deploy:
+    name: deploy kubernetes to EKS
+    needs: terraform
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Helm Install and Kubectl Apply
+      uses: wahyd4/kubectl-helm-action@master
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBECONFIG }}
+      with:
+        args: |
+          helm install -n kube-system csi-secrets-store secrets-store-csi-driver/secrets-store-csi-driver
+          kubectl apply -f https://raw.githubusercontent.com/aws/secrets-store-csi-driver-provider-aws/main/deployment/aws-provider-installer.yaml
+          helm upgrade --install -n kube-system --set syncSecret.enabled=true csi-secrets-store secrets-store-csi-driver/secrets-store-csi-driver
+          helm install hexacluster-v0.0.3 hexacluster
+  
