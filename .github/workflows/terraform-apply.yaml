@@ -90,23 +90,11 @@ jobs:
     - name: Update kubeconfig
       run: aws eks update-kubeconfig --region us-east-1 --name hexaform
 
-    # - name: Helm Install and Kubectl Apply
-    #   uses: wahyd4/kubectl-helm-action@master
-    #   env:
-    #     KUBE_CONFIG_DATA: ${{ secrets.KUBECONFIG }}
-    #   with:
-    #     args: |
-    #       helm repo add secrets-store-csi-driver https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
-    #       helm install -n kube-system csi-secrets-store secrets-store-csi-driver/secrets-store-csi-driver
-    #       kubectl apply -f https://raw.githubusercontent.com/aws/secrets-store-csi-driver-provider-aws/main/deployment/aws-provider-installer.yaml
-    #       helm upgrade --install -n kube-system --set syncSecret.enabled=true csi-secrets-store secrets-store-csi-driver/secrets-store-csi-driver
-    #       helm install hexacluster-v0.0.3 hexacluster
-
     - name: Helm Install and Kubectl Apply
       run: |
         helm repo add secrets-store-csi-driver https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
         helm install -n kube-system csi-secrets-store secrets-store-csi-driver/secrets-store-csi-driver
         kubectl apply -f https://raw.githubusercontent.com/aws/secrets-store-csi-driver-provider-aws/main/deployment/aws-provider-installer.yaml
         helm upgrade --install -n kube-system --set syncSecret.enabled=true csi-secrets-store secrets-store-csi-driver/secrets-store-csi-driver
-        helm install hexacluster-v0.0.3 hexacluster
+        helm upgrade --install hexacluster-v0.0.3 hexacluster
   
