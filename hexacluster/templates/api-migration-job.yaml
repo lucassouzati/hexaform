@@ -5,13 +5,27 @@ metadata:
 spec:
   template:
     spec:
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      volumes:
+        - name: secret-provider
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "secret-provider"
       containers:
-        - name: api-migration
-          image: marayza/hexafoodk8s:v15
-          command: ['/bin/sh', '-c']
-          args:
-            - './wait-for-it.sh postgres-service:5432 -- yarn prisma migrate dev && yarn prisma db seed'
-          envFrom:
-            - secretRef:
-                name: postgres-secret
+      - name: api-migration
+        image: marayza/hexafoodk8s:v15
+        command: ['/bin/sh', '-c']
+        args:
+          - 'yarn prisma migrate dev && yarn prisma db seed'
+        env:
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: my-k8s-secrets
+                key: DATABASE_URL
+        volumeMounts:
+          - name: secret-provider
+            mountPath: "/mnt/secrets-store"
       restartPolicy: OnFailure
