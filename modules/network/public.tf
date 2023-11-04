@@ -34,3 +34,12 @@ resource "aws_route_table_association" "eks_public_rt_association_1b" {
   subnet_id      = aws_subnet.eks_subnet_public_1b.id
   route_table_id = aws_route_table.eks_public_rt.id
 }
+
+resource "aws_db_subnet_group" "rds_public_subnet_group" {
+  name       = "main"
+  subnet_ids = [aws_subnet.eks_subnet_public_1a.id, aws_subnet.eks_subnet_public_1b.id]
+
+  tags = {
+    Name = "My DB subnet group"
+  }
+}

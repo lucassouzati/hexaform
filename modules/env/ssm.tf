@@ -32,7 +32,3 @@ resource "aws_ssm_parameter" "database_url" {
                   var.db_host, 
                   var.db_database)
 }
-
-//DATABASE_URL="postgresql://userpg:mysecretpassword@postgres:5432/hexafood"
-
-
