@@ -16,7 +16,7 @@ variable "kubernetes_version" {
 
 variable "nodes_instances_type" {
   default = [
-    "t2.medium"
+    "t2.small"
   ]
 }
 
