@@ -33,8 +33,11 @@ module "node" {
 
   nodes_instances_type = var.nodes_instances_type
   parameter_prefix = local.parameter_prefix
-  account_id = data.aws_caller_identity.current.account_id
+  # account_id = data.aws_caller_identity.current.account_id
   region = var.region
+  eks_url = module.master.eks_url
+  cluster_id = module.master.cluster_id
+  issuer = module.master.issuer
 }
 
 module "database" {
@@ -45,17 +48,16 @@ module "database" {
   db_engine = var.db_engine
   db_version = var.db_version
   db_username = var.db_username
-  vpc_id = module.network.vpc_id
-  default_security_group_id = module.network.default_security_group_id
+  default_security_group_id = module.master.security_group_id
+  db_subnet_group_name = module.network.subnet_group_name
 }
 
 module "env" {
   source = "./modules/env"
   db_host = module.database.db_host
-  db_database = module.database.db_database
-  db_username = module.database.db_username
+  db_database = var.db_name
+  db_username = var.db_username
   db_password = module.database.db_password
   parameter_prefix = local.parameter_prefix
 }
 
-data "aws_caller_identity" "current" {}
