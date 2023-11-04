@@ -11,9 +11,8 @@ variable "db_version" {}
 
 variable "db_username" {}
 
-variable "vpc_id" {}
-
 variable "default_security_group_id" {}
 
+variable "db_subnet_group_name" {}
 
 

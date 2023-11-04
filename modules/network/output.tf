@@ -13,3 +13,7 @@ output "private_subnet_1b" {
 output "default_security_group_id" {
   value = aws_vpc.eks_vpc.default_security_group_id
 }
+
+output "subnet_group_name" {
+  value = aws_db_subnet_group.rds_public_subnet_group.name
+}
