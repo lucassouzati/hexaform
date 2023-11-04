@@ -93,7 +93,7 @@ jobs:
     - name: Helm Install and Kubectl Apply
       run: |
         helm repo add secrets-store-csi-driver https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
-        helm install -n kube-system csi-secrets-store secrets-store-csi-driver/secrets-store-csi-driver
+        helm upgrade --install -n kube-system csi-secrets-store secrets-store-csi-driver/secrets-store-csi-driver
         kubectl apply -f https://raw.githubusercontent.com/aws/secrets-store-csi-driver-provider-aws/main/deployment/aws-provider-installer.yaml
         helm upgrade --install -n kube-system --set syncSecret.enabled=true csi-secrets-store secrets-store-csi-driver/secrets-store-csi-driver
         helm upgrade --install hexacluster-v0.0.3 hexacluster
