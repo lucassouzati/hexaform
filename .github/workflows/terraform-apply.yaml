@@ -96,5 +96,5 @@ jobs:
         helm upgrade --install -n kube-system csi-secrets-store secrets-store-csi-driver/secrets-store-csi-driver
         kubectl apply -f https://raw.githubusercontent.com/aws/secrets-store-csi-driver-provider-aws/main/deployment/aws-provider-installer.yaml
         helm upgrade --install -n kube-system --set syncSecret.enabled=true csi-secrets-store secrets-store-csi-driver/secrets-store-csi-driver
-        helm upgrade --install hexacluster hexacluster --set serviceAccount.annotations.eks.role_arn=$ROLE_ARN
+        helm upgrade --install hexacluster hexacluster --set serviceAccount.annotations.eks.role_arn=${{ vars.ROLE_ARN }}
   
