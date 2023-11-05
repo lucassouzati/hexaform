@@ -10,14 +10,14 @@
 - <a href="#rocket-como-rodar-esse-projeto">Como rodar esse projeto</a>
 - <a href="#world_map-composição-do-terraform">Composição do Terraform</a>
 - <a href="#globe_with_meridians-infraestrutura-na-aws">Infraestrutura na AWS</a>
-- <a href="#globe_with_meridians-devops">DevOps
-</a>
+- <a href="#globe_with_meridians-devops">DevOps</a>
     - <a href="#proteção-da-branch-main">Proteção da branch main</a>
     - <a href="#integração-contínua-ci">Integração Contínua (CI)</a>
     - <a href="#entrega-contínua-cd">Entrega Contínua (CD)</a>
 - <a href="#chart_with_upwards_trend-melhorias">Melhorias</a>
 - <a href="#bookmark_tabs-licença">Licença</a>
 - <a href="#wink-autores">Autores</a>
+
 ## :boat: Sobre o projeto
 
 Esse projeto faz parte do trabalho "Tech Challenge - Fase 03", ministrado no terceiro módulo do curso de Pós Graduação Software Architecture da FIAP em parceria com a Alura.
