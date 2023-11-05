@@ -95,7 +95,8 @@ jobs:
   
     - name: Get Terraform Outputs
       id: get_tf_outputs
-      run: echo "::set-output name=role_arn::$(terraform output -raw module.node.pod_service_account_role_arn)"
+      run: |
+        echo "ROLE_ARN=$(terraform output -raw module.node.pod_service_account_role_arn)" >> $GITHUB_ENV
       
     - name: Update kubeconfig
       run: aws eks update-kubeconfig --region us-east-1 --name hexaform
@@ -106,5 +107,5 @@ jobs:
         helm upgrade --install -n kube-system csi-secrets-store secrets-store-csi-driver/secrets-store-csi-driver
         kubectl apply -f https://raw.githubusercontent.com/aws/secrets-store-csi-driver-provider-aws/main/deployment/aws-provider-installer.yaml
         helm upgrade --install -n kube-system --set syncSecret.enabled=true csi-secrets-store secrets-store-csi-driver/secrets-store-csi-driver
-        helm upgrade --install hexacluster-v0.0.3 hexacluster --set serviceAccount.annotations.eks.role_arn=${{ steps.get_tf_outputs.outputs.role_arn }}
+        helm upgrade --install hexacluster-v0.0.3 hexacluster --set serviceAccount.annotations.eks.role_arn=${{ env.ROLE_ARN }}
   
