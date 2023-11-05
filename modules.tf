@@ -61,3 +61,7 @@ module "env" {
   parameter_prefix = local.parameter_prefix
 }
 
+
+output "pod_service_account_role_arn" {
+  value = module.node.pod_service_account_role_arn
+}
