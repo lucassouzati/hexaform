@@ -98,8 +98,21 @@ jobs:
     - name: Get Terraform Outputs
       id: get_tf_outputs
       run: |
-        ROLE_ARN=$(terraform output -raw module.node.pod_service_account_role_arn)
+        echo "TF_CLOUD_ORGANIZATION=$TF_CLOUD_ORGANIZATION" > terraform.tfvars
+        echo "TF_API_TOKEN=$TF_API_TOKEN" >> terraform.tfvars
+        terraform init
+        ROLE_ARN=$(terraform output -raw pod_service_account_role_arn)
+        if [ -z "$ROLE_ARN" ]; then
+          echo "ROLE_ARN is empty. Check Terraform outputs."
+          exit 1
+        fi
         echo "ROLE_ARN=$ROLE_ARN" >> $GITHUB_ENV
+      shell: /usr/bin/bash -e {0}
+      env:
+        TF_CLOUD_ORGANIZATION: hexafood
+        TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+        TF_WORKSPACE: hexaform
+    
     - name: Update kubeconfig
       run: aws eks update-kubeconfig --region us-east-1 --name hexaform
 
