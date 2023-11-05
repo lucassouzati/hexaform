@@ -98,7 +98,7 @@ jobs:
     - name: Get Terraform Outputs
       id: get_tf_outputs
       run: |
-        ROLE_ARN=$(terraform output -raw module.node.pod_service_account_role_arn)"
+        ROLE_ARN=$(terraform output -raw module.node.pod_service_account_role_arn)
         echo "ROLE_ARN=$ROLE_ARN" >> $GITHUB_ENV
     - name: Update kubeconfig
       run: aws eks update-kubeconfig --region us-east-1 --name hexaform
