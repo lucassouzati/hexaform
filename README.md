@@ -91,6 +91,15 @@ O master do cluster é onde possibilita a gestão do cluster bem como a execuç�
 
 Por último e não menos importante, pode-se notar que existem duas zonas disponibilidades no diagrama, sendo us-east-1 e us-east-2. Isso indica que todos esses recursos são alocados em duas zonas de disponibilidade, o que é requisito necessário tanto para o RKS para o RDS, por serem serviços de alta disponibilidade. Isso quer dizer que em caso de uma zona falhar, a outra pode continuar funcionando. 
 
+Outro ponto que vale ser ressaltado foi algumas mudanças que tiveram no cluster kubernetes desenvolvido no Tech Challenge anterior, sendo a principal delas a utilização de um banco gerenciado pela AWS, e por consequência a injeção das secrets nos pods. 
+
+Por conta dessa mudança, foi necessário a criação de uma Service Account no cluster, que é responsável por consultar as roles necessárias para acessar determiando recurso na AWS. Nesse caso o recurso necessário é o SSM Parameter Stores, aonde estão sendo salvas as credenciais do banco. Dessa forma, as variáveis puderam ser injetadas nos pods, conforme imagem a seguir:
+<br>
+<h4 align="center">
+    <img alt="Modelo de plano de execução" title="terraform-plan-githubactions" src=".github/readme/injecao-secrets.drawio.png" width="1864px" />
+</h4>
+<br>
+
 ## :globe_with_meridians: DevOps
 
 Visando integrar boas práticas e cultura DevOps a este projeto, foram implantados as seguintes configurações neste projeto:
