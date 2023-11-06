@@ -98,7 +98,7 @@ tolerations: []
 affinity: {}
 
 api:
-  image: marayza/hexafood:latest
+  image: brpadilha/hexafood:latest
   replicas: 2
 
 serviceAccount:
