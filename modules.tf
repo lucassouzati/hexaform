@@ -17,6 +17,7 @@ module "master" {
 
   private_subnet_1a = module.network.private_subnet_1a
   private_subnet_1b = module.network.private_subnet_1b
+  lab_role_arn = var.lab_role_arn
 }
 
 module "node" {
@@ -38,6 +39,7 @@ module "node" {
   eks_url = module.master.eks_url
   cluster_id = module.master.cluster_id
   issuer = module.master.issuer
+  lab_role_arn = var.lab_role_arn
 }
 
 module "database" {
@@ -63,5 +65,5 @@ module "env" {
 
 
 output "pod_service_account_role_arn" {
-  value = module.node.pod_service_account_role_arn
+  value = var.lab_role_arn
 }
