@@ -5,3 +5,5 @@ variable "kubernetes_version" {}
 variable "private_subnet_1a" {}
 
 variable "private_subnet_1b" {}
+
+variable "lab_role_arn" {}

@@ -68,3 +68,7 @@ variable "db_username" {
   default = "hexabase"
 }
 
+variable "lab_role_arn" {
+  default = "arn:aws:iam::339713020828:role/LabRole"
+}
+

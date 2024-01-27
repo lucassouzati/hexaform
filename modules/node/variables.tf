@@ -26,3 +26,5 @@ variable "cluster_id" {
 }
 
 variable "issuer" {}
+
+variable "lab_role_arn" {}
