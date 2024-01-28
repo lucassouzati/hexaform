@@ -32,3 +32,22 @@ resource "aws_ssm_parameter" "database_url" {
                   var.db_host, 
                   var.db_database)
 }
+
+resource "aws_ssm_parameter" "novo_pedido_queue_url" {
+  name  = "${var.parameter_prefix}/novo_pedido_queue_url"
+  type  = "String"
+  value = var.novo_pedido_queue_url
+}
+
+resource "aws_ssm_parameter" "pagamento_processado_queue_url" {
+  name  = "${var.parameter_prefix}/pagamento_processado_queue_url"
+  type  = "String"
+  value = var.pagamento_processado_queue_url
+}
+
+resource "aws_ssm_parameter" "pedido_recebido_queue_url" {
+  name  = "${var.parameter_prefix}/pedido_recebido_queue_url"
+  type  = "String"
+  value = var.pedido_recebido_queue_url
+}
+

@@ -82,3 +82,13 @@ variable "ecr_repository_name_hexafood_pagamento"{
   default = "hexafood_pagamento"
 }
 
+variable "novo_pedido_queue"{
+  default = "novo_pedido"
+}
+variable "pagamento_processado_queue"{
+  default = "pagamento_processado"
+}
+variable "pedido_recebido_queue"{
+  default = "pedido_recebido"
+}
+

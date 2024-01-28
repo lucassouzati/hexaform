@@ -57,6 +57,13 @@ module "database" {
   db_subnet_group_name = module.network.subnet_group_name
 }
 
+module "message_broker" {
+  source = "./modules/message_broker"
+  novo_pedido_queue = var.novo_pedido_queue
+  pagamento_processado_queue = var.pagamento_processado_queue
+  pedido_recebido_queue = var.pedido_recebido_queue
+}
+
 module "env" {
   source = "./modules/env"
   db_host = module.database.db_host
@@ -64,6 +71,9 @@ module "env" {
   db_username = var.db_username
   db_password = module.database.db_password
   parameter_prefix = local.parameter_prefix
+  novo_pedido_queue_url = module.message_broker.novo_pedido_queue_url
+  pagamento_processado_queue_url = module.message_broker.pagamento_processado_queue_url
+  pedido_recebido_queue_url = module.message_broker.pedido_recebido_queue_url
 }
 
 
