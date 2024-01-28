@@ -48,6 +48,10 @@ variable "db_name" {
   default = "hexabase"
 }
 
+variable "db_name_hexafood_pagamento" {
+  default = "hexabase_pagamento"
+}
+
 variable "db_instance_type" {
   default = "db.t3.micro"
 }
@@ -66,6 +70,10 @@ variable "db_version" {
 
 variable "db_username" {
   default = "hexabase"
+}
+
+variable "db_username_hexafood_pagamento" {
+  default = "hexabase_hexafood_pagamento"
 }
 
 variable "lab_role_arn" {

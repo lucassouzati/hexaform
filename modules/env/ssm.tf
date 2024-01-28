@@ -51,3 +51,27 @@ resource "aws_ssm_parameter" "pedido_recebido_queue_url" {
   value = var.pedido_recebido_queue_url
 }
 
+resource "aws_ssm_parameter" "db_host_hexafood_pagamento" {
+  name  = "${var.parameter_prefix}/hexafood_pagamento/host"
+  type  = "String"
+  value = var.db_host_hexafood_pagamento
+}
+
+resource "aws_ssm_parameter" "db_database_hexafood_pagamento" {
+  name  = "${var.parameter_prefix}/hexafood_pagamento/database"
+  type  = "String"
+  value = var.db_database_hexafood_pagamento
+}
+
+resource "aws_ssm_parameter" "db_username_hexafood_pagamento" {
+  name  = "${var.parameter_prefix}/hexafood_pagamento/username"
+  type  = "String"
+  value = var.db_username_hexafood_pagamento
+}
+
+resource "aws_ssm_parameter" "db_password_hexafood_pagamento" {
+  name  = "${var.parameter_prefix}/hexafood_pagamento/password"
+  type  = "SecureString"
+  value = var.db_password_hexafood_pagamento
+  key_id = "alias/aws/ssm"
+}

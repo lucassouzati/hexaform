@@ -15,4 +15,7 @@ variable "default_security_group_id" {}
 
 variable "db_subnet_group_name" {}
 
+variable "db_name_hexafood_pagamento" {}
+
+variable "db_username_hexafood_pagamento" {}
 

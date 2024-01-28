@@ -55,6 +55,8 @@ module "database" {
   db_username = var.db_username
   default_security_group_id = module.master.security_group_id
   db_subnet_group_name = module.network.subnet_group_name
+  db_name_hexafood_pagamento = var.db_name_hexafood_pagamento
+  db_username_hexafood_pagamento = var.db_username_hexafood_pagamento
 }
 
 module "message_broker" {
@@ -74,6 +76,10 @@ module "env" {
   novo_pedido_queue_url = module.message_broker.novo_pedido_queue_url
   pagamento_processado_queue_url = module.message_broker.pagamento_processado_queue_url
   pedido_recebido_queue_url = module.message_broker.pedido_recebido_queue_url
+  db_password_hexafood_pagamento = module.database.db_password_hexafood_pagamento
+  db_host_hexafood_pagamento = module.database.db_host_hexafood_pagamento
+  db_username_hexafood_pagamento = module.database.db_username_hexafood_pagamento
+  db_database_hexafood_pagamento = module.database.db_database_hexafood_pagamento
 }
 
 
