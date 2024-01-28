@@ -72,3 +72,13 @@ variable "lab_role_arn" {
   default = "arn:aws:iam::339713020828:role/LabRole"
 }
 
+variable "ecr_repository_name_hexafood_pedido"{
+  default = "hexafood_pedido"
+}
+variable "ecr_repository_name_hexafood_producao"{
+  default = "hexafood_producao"
+}
+variable "ecr_repository_name_hexafood_pagamento"{
+  default = "hexafood_pagamento"
+}
+

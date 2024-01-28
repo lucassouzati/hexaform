@@ -18,6 +18,9 @@ module "master" {
   private_subnet_1a = module.network.private_subnet_1a
   private_subnet_1b = module.network.private_subnet_1b
   lab_role_arn = var.lab_role_arn
+  ecr_repository_name_hexafood_pedido = var.ecr_repository_name_hexafood_pedido
+  ecr_repository_name_hexafood_producao = var.ecr_repository_name_hexafood_producao
+  ecr_repository_name_hexafood_pagamento = var.ecr_repository_name_hexafood_pagamento
 }
 
 module "node" {
