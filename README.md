@@ -10,10 +10,7 @@
 - <a href="#rocket-como-rodar-esse-projeto">Como rodar esse projeto</a>
 - <a href="#world_map-composição-do-terraform">Composição do Terraform</a>
 - <a href="#globe_with_meridians-infraestrutura-na-aws">Infraestrutura na AWS</a>
-- <a href="#globe_with_meridians-devops">DevOps</a>
-    - <a href="#proteção-da-branch-main">Proteção da branch main</a>
-    - <a href="#integração-contínua-ci">Integração Contínua (CI)</a>
-    - <a href="#entrega-contínua-cd">Entrega Contínua (CD)</a>
+- <a href="#globe_with_meridians-comunicação-assíncrona-entre-microsserviços">Comunicação assíncrona entre microsserviços</a>
 - <a href="#chart_with_upwards_trend-melhorias">Melhorias</a>
 - <a href="#bookmark_tabs-licença">Licença</a>
 - <a href="#wink-autores">Autores</a>
@@ -67,7 +64,7 @@ Para atendimento de um requisitos do Tech Challenge, foi implementado um banco N
 Dessa forma, o desenho da estrutura modular do Terraform atualizado fica da seguinte forma:
 <br>
 <h4 align="center">
-    <img alt="Representação visual do Terraform" title="estruturacao-terraform" src=".github/readme/estruturacao-terraform.drawio.png" width="1864px" />
+    <img alt="Representação visual do Terraform" title="estruturacao-terraform" src=".github/readme/estruturacao-terraform2.drawio.png" width="1864px" />
 </h4>
 <br>
 
@@ -76,7 +73,7 @@ Dessa forma, o desenho da estrutura modular do Terraform atualizado fica da segu
 Foi atualizado o desenho da arquitetura da infraestrutura na AWS, a fim de evidenciar a separação dos microsserviços:
 <br>
 <h4 align="center">
-    <img alt="Arquitetura na AWS" title="arquitetura-aws" src=".github/readme/arquitetura-aws.drawio.png" width="1864px" />
+    <img alt="Arquitetura na AWS" title="arquitetura-aws" src=".github/readme/arquitetura-aws2.drawio.png" width="1864px" />
 </h4>
 <br>
 Cada microsserviço passou a ser um deployment no cluster Kubernetes no EKS, com 2 réplicas e com seu próprio load balancer expondo as portas de acesso. A pipeline faz o deploy dos artefatos gerados (imagens docker) no ECR, sendo o EKS atualizar os pods para novas versões de imagem geradas no registry. Também é válido ressaltar que cada microsserviço tem o seu próprio banco de dados, garantindo assim independência total entre eles. 
