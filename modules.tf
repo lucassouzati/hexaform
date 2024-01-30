@@ -18,6 +18,9 @@ module "master" {
   private_subnet_1a = module.network.private_subnet_1a
   private_subnet_1b = module.network.private_subnet_1b
   lab_role_arn = var.lab_role_arn
+  ecr_repository_name_hexafood_pedido = var.ecr_repository_name_hexafood_pedido
+  ecr_repository_name_hexafood_producao = var.ecr_repository_name_hexafood_producao
+  ecr_repository_name_hexafood_pagamento = var.ecr_repository_name_hexafood_pagamento
 }
 
 module "node" {
@@ -52,6 +55,15 @@ module "database" {
   db_username = var.db_username
   default_security_group_id = module.master.security_group_id
   db_subnet_group_name = module.network.subnet_group_name
+  db_name_hexafood_pagamento = var.db_name_hexafood_pagamento
+  db_username_hexafood_pagamento = var.db_username_hexafood_pagamento
+}
+
+module "message_broker" {
+  source = "./modules/message_broker"
+  novo_pedido_queue = var.novo_pedido_queue
+  pagamento_processado_queue = var.pagamento_processado_queue
+  pedido_recebido_queue = var.pedido_recebido_queue
 }
 
 module "env" {
@@ -61,6 +73,14 @@ module "env" {
   db_username = var.db_username
   db_password = module.database.db_password
   parameter_prefix = local.parameter_prefix
+  novo_pedido_queue_url = module.message_broker.novo_pedido_queue_url
+  pagamento_processado_queue_url = module.message_broker.pagamento_processado_queue_url
+  pedido_recebido_queue_url = module.message_broker.pedido_recebido_queue_url
+  db_password_hexafood_pagamento = module.database.db_password_hexafood_pagamento
+  db_host_hexafood_pagamento = module.database.db_host_hexafood_pagamento
+  db_username_hexafood_pagamento = module.database.db_username_hexafood_pagamento
+  db_database_hexafood_pagamento = module.database.db_database_hexafood_pagamento
+  dynamodb_endpoint = var.dynamodb_endpoint
 }
 
 

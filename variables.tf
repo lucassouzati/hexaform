@@ -48,6 +48,10 @@ variable "db_name" {
   default = "hexabase"
 }
 
+variable "db_name_hexafood_pagamento" {
+  default = "hexabase_pagamento"
+}
+
 variable "db_instance_type" {
   default = "db.t3.micro"
 }
@@ -68,7 +72,34 @@ variable "db_username" {
   default = "hexabase"
 }
 
+variable "db_username_hexafood_pagamento" {
+  default = "hexabase_hexafood_pagamento"
+}
+
 variable "lab_role_arn" {
   default = "arn:aws:iam::339713020828:role/LabRole"
+}
+
+variable "ecr_repository_name_hexafood_pedido"{
+  default = "hexafood_pedido"
+}
+variable "ecr_repository_name_hexafood_producao"{
+  default = "hexafood_producao"
+}
+variable "ecr_repository_name_hexafood_pagamento"{
+  default = "hexafood_pagamento"
+}
+
+variable "novo_pedido_queue"{
+  default = "novo_pedido"
+}
+variable "pagamento_processado_queue"{
+  default = "pagamento_processado"
+}
+variable "pedido_recebido_queue"{
+  default = "pedido_recebido"
+}
+variable "dynamodb_endpoint"{
+  default = "https://dynamodb.us-east-1.amazonaws.com"
 }
 

@@ -19,3 +19,22 @@ resource "aws_eks_cluster" "eks_cluster" {
   # ]
 
 }
+
+# Create Elastic Container Registry (ECR)
+resource "aws_ecr_repository" "hexafood_pedido" {
+  name = var.ecr_repository_name_hexafood_pedido
+
+  image_tag_mutability = "MUTABLE"
+}
+
+resource "aws_ecr_repository" "hexafood_producao" {
+  name = var.ecr_repository_name_hexafood_producao
+
+  image_tag_mutability = "MUTABLE"
+}
+
+resource "aws_ecr_repository" "hexafood_pagamento" {
+  name = var.ecr_repository_name_hexafood_pagamento
+
+  image_tag_mutability = "MUTABLE"
+}
