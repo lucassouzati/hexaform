@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api-deployment-pedido
+  name: api-deployment-producao
 spec:
-  replicas: {{ .Values.api.pedido.replicas }}
+  replicas: {{ .Values.api.producao.replicas }}
   selector:
     matchLabels:
-      app: api-pedido
+      app: api-producao
   template:
     metadata:
       labels:
-        app: api-pedido
+        app: api-producao
     spec:
       serviceAccountName: {{ .Values.serviceAccount.name }}
       volumes:
@@ -23,16 +23,16 @@ spec:
             volumeAttributes:
               secretProviderClass: "secret-provider"
       containers:
-        - name: {{ .Values.api.pedido.name }}
-          image: {{ .Values.api.pedido.image }}
+        - name: {{ .Values.api.producao.name }}
+          image: {{ .Values.api.producao.image }}
           ports:
             - containerPort: 3000
           command: ['/bin/sh', '-c']
           args:
-            - './wait-for-it.sh postgres-service:5432 -- ./start.sh'
+            - './start.sh'
           env:
-          - name: DATABASE_URL
-            value: "DATABASE_URL"
+          - name: AWS_DYNAMODB_ENDPOINT
+            value: "https://dynamodb.us-east-1.amazonaws.com"
           - name: AWS_ACCESS_KEY_ID
             value: "dummy"
           - name: AWS_SECRET_ACCESS_KEY
@@ -40,9 +40,9 @@ spec:
           - name: AWS_DEFAULT_REGION
             value: "us-east-1"
           - name: AWS_ACCOUNT_ID
-            value: "339713020828"
+            value: "account_id"
           - name: AWS_SQS_ENDPOINT
-            value: "url_da_fila"
+            value: "AWS_SQS_ENDPOINT"
           - name: AWS_SQS_NOVO_PEDIDO_QUEUE_NAME
             value: "novo_pedido"
           - name: AWS_SQS_PAGAMENTO_PROCESSADO_QUEUE_NAME
@@ -59,12 +59,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: api-lb-service-pedido
+  name: api-lb-service-producao
 spec:
   type: LoadBalancer
   ports:
     - port: 80
-      nodePort: 31000
+      nodePort: 32001
       targetPort: 3000
   selector:
-    app: api-pedido
+    app: api-producao

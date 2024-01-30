@@ -98,13 +98,20 @@ tolerations: []
 affinity: {}
 
 api:
-  image: brpadilha/hexafood:latest
-  replicas: 2
+  pedido:
+    name: hexafood-api-pedido
+    image: registry
+    replicas: 2
+
+  producao:
+    name: hexafood-api-producao
+    image: registry
+    replicas: 2
 
 serviceAccount:
   create: true
   name: hexaform
   annotations:
     eks:
-      role_arn: "arn:aws:iam::315402446453:role/pod-service-account-role"
+      role_arn: "arn:aws:iam::339713020828:role/LabRole"
 
