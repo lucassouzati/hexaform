@@ -14,7 +14,6 @@ output "db_database" {
   value = aws_db_instance.rds-db-instance.db_name
 }
 
-
 output "db_password_hexafood_pagamento" {
     value = random_string.rds-db-password.result
 }

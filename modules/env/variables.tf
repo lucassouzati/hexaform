@@ -21,3 +21,5 @@ variable "db_host_hexafood_pagamento" {}
 variable "db_username_hexafood_pagamento" {}
 
 variable "db_database_hexafood_pagamento" {}
+
+variable "dynamodb_endpoint" {}
