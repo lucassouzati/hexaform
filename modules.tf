@@ -80,6 +80,7 @@ module "env" {
   db_host_hexafood_pagamento = module.database.db_host_hexafood_pagamento
   db_username_hexafood_pagamento = module.database.db_username_hexafood_pagamento
   db_database_hexafood_pagamento = module.database.db_database_hexafood_pagamento
+  dynamodb_endpoint = var.dynamodb_endpoint
 }
 
 

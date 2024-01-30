@@ -99,4 +99,7 @@ variable "pagamento_processado_queue"{
 variable "pedido_recebido_queue"{
   default = "pedido_recebido"
 }
+variable "dynamodb_endpoint"{
+  default = "https://dynamodb.us-east-1.amazonaws.com"
+}
 
