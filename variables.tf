@@ -2,6 +2,10 @@ variable "env"{
   default = "dev"
 }
 
+variable "account_id" {
+  default = "637423636452"
+}
+
 variable "cluster_name" {
   default = "hexaform"
 }
@@ -76,8 +80,8 @@ variable "db_username_hexafood_pagamento" {
   default = "hexabase_hexafood_pagamento"
 }
 
-variable "lab_role_arn" {
-  default = "arn:aws:iam::339713020828:role/LabRole"
+locals {
+  lab_role_arn = "arn:aws:iam::${var.account_id}:role/LabRole"
 }
 
 variable "ecr_repository_name_hexafood_pedido"{

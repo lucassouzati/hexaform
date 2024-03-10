@@ -1,6 +1,8 @@
 locals {
   parameter_prefix = "/${var.env}/${var.cluster_name}"
 }
+data "aws_caller_identity" "current" {}
+
 
 module "network" {
   source = "./modules/network"
@@ -17,7 +19,7 @@ module "master" {
 
   private_subnet_1a = module.network.private_subnet_1a
   private_subnet_1b = module.network.private_subnet_1b
-  lab_role_arn = var.lab_role_arn
+  lab_role_arn = local.lab_role_arn
   ecr_repository_name_hexafood_pedido = var.ecr_repository_name_hexafood_pedido
   ecr_repository_name_hexafood_producao = var.ecr_repository_name_hexafood_producao
   ecr_repository_name_hexafood_pagamento = var.ecr_repository_name_hexafood_pagamento
@@ -42,7 +44,7 @@ module "node" {
   eks_url = module.master.eks_url
   cluster_id = module.master.cluster_id
   issuer = module.master.issuer
-  lab_role_arn = var.lab_role_arn
+  lab_role_arn = local.lab_role_arn
 }
 
 module "database" {
@@ -85,5 +87,17 @@ module "env" {
 
 
 output "pod_service_account_role_arn" {
-  value = var.lab_role_arn
+  value = local.lab_role_arn
+  sensitive = true
 }
+
+output "account_id" {
+  value = data.aws_caller_identity.current.account_id
+  sensitive = true
+}
+
+output "db_connection_string" {
+  value = format("postgresql://%s:%s@%s/%s", module.database.db_username, module.database.db_password, module.database.db_host, module.database.db_database)
+  sensitive = true
+}
+

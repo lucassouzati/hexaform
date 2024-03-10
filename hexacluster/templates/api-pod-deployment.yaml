@@ -32,17 +32,17 @@ spec:
             - './wait-for-it.sh postgres-service:5432 -- ./start.sh'
           env:
           - name: DATABASE_URL
-            value: "DATABASE_URL"
+            value: "{{ .Values.database.connectionString }}"
           - name: AWS_ACCESS_KEY_ID
-            value: "dummy"
+            value: "ASIAZI2LIZ7SOJH2C4PE"
           - name: AWS_SECRET_ACCESS_KEY
-            value: "dummy"
+            value: "KrnLzRqYxPfhyJ5umebrF9MmXePjhsQ+djheFA3T"
           - name: AWS_DEFAULT_REGION
             value: "us-east-1"
           - name: AWS_ACCOUNT_ID
-            value: "339713020828"
+            value: "{{ .Values.account.id }}"
           - name: AWS_SQS_ENDPOINT
-            value: "url_da_fila"
+            value: "https://sqs.us-east-1.amazonaws.com"
           - name: AWS_SQS_NOVO_PEDIDO_QUEUE_NAME
             value: "novo_pedido"
           - name: AWS_SQS_PAGAMENTO_PROCESSADO_QUEUE_NAME
