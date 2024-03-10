@@ -7,11 +7,9 @@ image:
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
-
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
-
 # serviceAccount:
 #   # Specifies whether a service account should be created
 #   create: true
@@ -70,7 +68,6 @@ autoscaling:
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
-
 # Additional volumes on the output Deployment definition.
 volumes: []
 # - name: foo
@@ -85,26 +82,24 @@ volumeMounts: []
 #   readOnly: true
 
 nodeSelector: {}
-
 tolerations: []
-
 affinity: {}
-
 api:
   pedido:
     name: hexafood-api-pedido
-    image: {{ .Values.accountId }}.dkr.ecr.us-east-1.amazonaws.com/hexafood_pedido
+    image: "{{ .Values.accountId }}.dkr.ecr.us-east-1.amazonaws.com/hexafood_pedido"
     replicas: 2
-
   producao:
     name: hexafood-api-producao
-    image: {{ .Values.accountId }}.dkr.ecr.us-east-1.amazonaws.com/hexafood_producao
+    image: "{{ .Values.accountId }}.dkr.ecr.us-east-1.amazonaws.com/hexafood_producao"
     replicas: 2
-
 serviceAccount:
   create: true
   name: hexaform
   annotations:
     eks:
       role_arn: "arn:aws:iam::{{ .Values.accountId }}:role/LabRole"
-
+database:
+  connectionString: postgresql://hexabase:OU0sWgkvQKC1eNrYCc0LgFluvgaBX0OT@terraform-20240310122629289000000005.cdgcm0cck26x.us-east-1.rds.amazonaws.com:5432/hexabase
+account:
+  id: "637423636452"
