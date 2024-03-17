@@ -3,7 +3,7 @@ variable "env"{
 }
 
 variable "account_id" {
-  default = "637423636452"
+  default = "905418037797"
 }
 
 variable "cluster_name" {
@@ -20,7 +20,7 @@ variable "kubernetes_version" {
 
 variable "nodes_instances_type" {
   default = [
-    "t2.small"
+    "t2.medium",
   ]
 }
 
