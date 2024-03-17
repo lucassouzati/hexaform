@@ -1,16 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api-deployment-producao
+  name: api-deployment-pedido
+  labels:
+    app: api-pedido
 spec:
-  replicas: {{ .Values.api.producao.replicas }}
+  replicas: 2
   selector:
     matchLabels:
-      app: api-producao
+      app: api-pedido
   template:
     metadata:
       labels:
-        app: api-producao
+        app: api-pedido
     spec:
       serviceAccountName: {{ .Values.serviceAccount.name }}
       volumes:
@@ -23,16 +25,17 @@ spec:
         #     volumeAttributes:
         #       secretProviderClass: "secret-provider"
       containers:
-        - name: {{ .Values.api.producao.name }}
-          image: {{ .Values.api.producao.image }}
+        - name: {{ .Values.api.pedido.name }}
+          image: {{ .Values.api.pedido.image }}
           ports:
             - containerPort: 3000
           command: ['/bin/sh', '-c']
           args:
+            # - './wait-for-it.sh {{ .Values.database.connectionStringPostgresPedido }} -- ./start.sh'
             - './start.sh'
           env:
-            - name: AWS_DYNAMODB_ENDPOINT
-              value: "{{ .Values.account.connectionStringDynamoDB }}"
+            - name: DATABASE_URL
+              value: "{{ .Values.database.connectionStringPostgresPedido }}"
             - name: AWS_ACCESS_KEY_ID
               value: {{ .Values.account.AWS_ACCESS_KEY_ID }}
             - name: AWS_SECRET_ACCESS_KEY
@@ -54,17 +57,23 @@ spec:
           volumeMounts:
             - name: app-volume
               mountPath: /home/node/app/vol
+              
+      
         
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: api-lb-service-producao
+  name: api-lb-service-pedido
+  labels:
+    app: api-pedido
 spec:
   type: LoadBalancer
   ports:
-    - port: 80
-      nodePort: 32001
-      targetPort: 3000
+  - port: 80
+    nodePort: 32000
+    protocol: TCP
+    targetPort: 3000
+
   selector:
-    app: api-producao
+    app: api-pedido
