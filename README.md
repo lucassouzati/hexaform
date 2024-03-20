@@ -17,13 +17,16 @@
 
 ## :boat: Sobre o projeto
 
-Esse projeto faz parte do trabalho "Tech Challenge - Fase 04", ministrado no quarto módulo do curso de Pós Graduação Software Architecture da FIAP em parceria com a Alura.
+Esse projeto faz parte do trabalho "Tech Challenge - Fase 05", ministrado no quinto módulo do curso de Pós Graduação Software Architecture da FIAP em parceria com a Alura.
 
-Para exercitar os conceitos apresentados nas matérias do curso, sendo elas Estrutura de Microsserviços e Qualidade de Software, esse projeto foi atualizado a fim de abarcar os novos conteúdos. Dessa forma. o projeto foi dividido em 03 (três) microsserviços, sendo cada um deles com seus próprios testes unitários e aferição de cobertura de testes. 
+Para exercitar os conceitos apresentados nas matérias do curso, sendo elas SAGA Pattern, Desenvolvimento Seguro e Privacidade de Dados e Lei Geral de Proteção de Dados (LGPD), esse projeto foi atualizado a fim de abarcar os novos conteúdos. Dessa forma, cada microsservico do projeto foi alterado para implementar novas práticas aprendidas no módulo. Nesse repositório está o microsserviço de Pedidos. 
 
-As boas práticas das fases anteriores continuam sendo implementadas, como proteção da branch MAIN e utilização de pipelines CI/CD para execução de testes e automação de pipeline. Também foram realizadas adaptações para infraestrutura funcionar no AWS Academy disponibilizado pela FIAP, pois existe uma limitação quanto ao uso do IAM e todos serviços devem ser atribuído a role LabRole para operarem.
+Toda infraestrutura e microsserviços estão distribuídos pelos seguintes repositórios:
 
-Nessa fase também tivemos a junção com outro grupo de trabalho, do qual aproveitou-se a funcionalidade de pagamento que estava melhor estruturada no trabalho desse grupo. Apesar de ser uma tecnologia diferente (Kotlin e Spring Boot), aproveitamos da vantagem de trabalhar com microsserviço que facilia a interoperalidade de sistemas em diferentes linguagem de programação.
+- [Hexaform (Infraestrutura)](https://github.com/lucassouzati/hexaform) (Este)
+- [Microsserviço Pedido](https://github.com/Hexafood-Corporation/hexafood-pedido) 
+- [Microsserviço Produção](https://github.com/Hexafood-Corporation/hexafood-producao/)
+- [Microsserviço Pagamento](https://github.com/Hexafood-Corporation/hexafood-payments)
 
 ## :hammer: Tecnologias:
 
@@ -46,10 +49,19 @@ Neste momento, será criado um plano de execução e você poderá ver tudos rec
 terraform apply -auto-approve
 ```
 
-Este processo demorará alguns minutos. Depois concluído é necessário executar configurações adicionais e o provisionamento do próprio cluster kubernetes. Todos esses comandos foram compilados em um script sh, então basta executá-lo:
+Este processo demorará alguns minutos. 
+
+Esse projeto foi implementado no console da AWS Academy, onde tem-se uma série de restrições como impossibilidade de fazer alterações no IAM Service. Também é restrito a criação de provedores para conexões de OpenID, recurso necessário para instâncias de serviços da AWS se autenticarem por IAM Roles em vez de secrets. Dessa forma, foi necessário realizar algumas adaptações como passagem de variáveis e secrets de ambiente diretamente nos arquivos yaml do Helm. Para isso, basta executar o comando:
 ```
-./setup-k8sincloud.sh
+./variables.sh
 ```
+
+Por último, basta fazer o deploy do cluster com o comando:
+```
+helm upgrade --install hexacluster ./hexacluster
+```
+
+Dessa forma, o cluster estará executando na sua instância do EKS provisionada. 
 
 ## :world_map: Composição do Terraform
 
@@ -88,7 +100,7 @@ Por isso, os microsserviços foram configurados a se comunicarem através de eve
 
 <br>
 <h4 align="center">
-    <img alt="Arquitetura na AWS" title="arquitetura-aws" src=".github/readme/assincrono.drawio.png" width="1864px" />
+    <img alt="Arquitetura na AWS" title="arquitetura-aws" src=".github/readme/hexafood-orquestrado.png" width="1864px" />
 </h4>
 <br>
 
@@ -108,6 +120,7 @@ Durante a implementação deste projeto, foi constatado oportunidades de melhori
 - Implementação de ferramentas de observalidade
 - Adoção de estratégias de deploy como Deploy Blue-Green ou Canary
 - Refatorações diversas nos workflows a fim de mitigar pontos de falha
+- Implementação de gerenciador de secretos no Kubernetes
 
 ## :bookmark_tabs: Licença
 
