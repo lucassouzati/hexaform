@@ -115,9 +115,9 @@ database:
   # connectionString: postgresql://hexabase:HrUPNGC0Bsa065xZlaf7dja1YV1NSeiY@terraform-20240316190815212200000005.cbya420wgsnp.us-east-1.rds.amazonaws.com:5432/hexabase
 account:
   id: "905418037797"
-  AWS_ACCESS_KEY_ID: "ASIA5FTY63ISRSZO4VOB"
-  AWS_SECRET_ACCESS_KEY: "qENXf1WGTubApUh57BLH6gPXtvippM3fbyF+srir"
-  AWS_SESSION_TOKEN: "FwoGZXIvYXdzEPr//////////wEaDHm/7WuQUbA9hlunBCLIAVpnhbM9DUXv/w4dEHorN+5O5o4DaUfOEWeuwzpo38jPLXbcZ2WCFqqNbynKP+3B1OuAb+ckIbq6CL2Dxfh8068mxGpRVEC8xoS7UIguuj2AH1AfZdYbU6yqYGpOtcwQWUkmTXFHHDkbt1x1fhLPwCOIUpoF/pneFAtLjooE7SQ3gKY1Rdtvi5TSQAy4+A43eea9yKRQHviCwMwRjqUvnQBvYrOeUa7zUExGlkDuA7N8tb6kFW3RWxUnWbJKfO/cVM6Kn9wU6ksVKMeH568GMi07kanlQYZAnFP50EOHIlK0843/s4VSfvhC6IvX3GrYcMXmSmycUDyzL03e9b4="
+  AWS_ACCESS_KEY_ID: ""
+  AWS_SECRET_ACCESS_KEY: ""
+  AWS_SESSION_TOKEN: ""
   AWS_DEFAULT_REGION: "us-east-1"
 queue:
   AWS_SQS_ENDPOINT: "https://sqs.us-east-1.amazonaws.com"
