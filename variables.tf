@@ -26,9 +26,9 @@ variable "nodes_instances_type" {
 
 variable "auto_scale_options" {
   default = {
-    min     = 2
-    max     = 4
-    desired = 2
+    min     = 4
+    max     = 6
+    desired = 4
   }
 }
 
@@ -102,6 +102,9 @@ variable "pagamento_processado_queue"{
 }
 variable "pedido_recebido_queue"{
   default = "pedido_recebido"
+}
+variable "pedido_finalizado_queue"{
+  default = "pedido_finalizado"
 }
 variable "dynamodb_endpoint"{
   default = "https://dynamodb.us-east-1.amazonaws.com"

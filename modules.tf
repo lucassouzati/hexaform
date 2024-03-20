@@ -66,6 +66,7 @@ module "message_broker" {
   novo_pedido_queue = var.novo_pedido_queue
   pagamento_processado_queue = var.pagamento_processado_queue
   pedido_recebido_queue = var.pedido_recebido_queue
+  pedido_finalizado_queue = var.pedido_finalizado_queue
 }
 
 module "env" {
@@ -101,3 +102,15 @@ output "db_connection_string" {
   sensitive = true
 }
 
+output "db_password_hexafood_pagamento" {
+  value = module.database.db_password_hexafood_pagamento
+}
+output "db_host_hexafood_pagamento" {
+  value = module.database.db_host_hexafood_pagamento
+}
+output "db_username_hexafood_pagamento" {
+  value = module.database.db_username_hexafood_pagamento
+}
+output "db_database_hexafood_pagamento" {
+  value = module.database.db_database_hexafood_pagamento
+}
