@@ -31,8 +31,6 @@ spec:
           args:
             - './start.sh'
           env:
-            - name: AWS_DYNAMODB_ENDPOINT
-              value: "{{ .Values.account.connectionStringDynamoDB }}"
             - name: AWS_ACCESS_KEY_ID
               value: {{ .Values.account.AWS_ACCESS_KEY_ID }}
             - name: AWS_SECRET_ACCESS_KEY
@@ -44,13 +42,17 @@ spec:
             - name: AWS_ACCOUNT_ID
               value: "{{ .Values.account.id }}"
             - name: AWS_SQS_ENDPOINT
-              value: "{{ .Values.queue.AWS_SQS_ENDPOINT}}"
+              value: {{ .Values.queue.AWS_SQS_ENDPOINT}}
             - name: AWS_SQS_NOVO_PEDIDO_QUEUE_NAME
               value: "{{ .Values.queue.AWS_SQS_NOVO_PEDIDO_QUEUE_NAME}}"
             - name: AWS_SQS_PAGAMENTO_PROCESSADO_QUEUE_NAME
               value: "{{ .Values.queue.AWS_SQS_PAGAMENTO_PROCESSADO_QUEUE_NAME}}"
             - name: AWS_SQS_PEDIDO_RECEBIDO_QUEUE_NAME
               value: "{{ .Values.queue.AWS_SQS_PEDIDO_RECEBIDO_QUEUE_NAME}}"
+            - name: AWS_SQS_PEDIDO_FINALIZADO_QUEUE_NAME
+              value: "{{ .Values.queue.AWS_SQS_PEDIDO_FINALIZADO_QUEUE_NAME}}"
+            - name: AWS_DYNAMODB_ENDPOINT
+              value: {{ .Values.database.db_dynamodb_endpoint_producao }}
           volumeMounts:
             - name: app-volume
               mountPath: /home/node/app/vol

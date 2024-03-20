@@ -93,6 +93,10 @@ api:
     name: hexafood-api-producao
     image: "905418037797.dkr.ecr.us-east-1.amazonaws.com/hexafood_producao"
     replicas: 2
+  pagamento:
+    name: hexafood-api-pagamento
+    image: "905418037797.dkr.ecr.us-east-1.amazonaws.com/hexafood_pagamento"
+    replicas: 2
 serviceAccount:
   create: true
   name: hexaform
@@ -102,16 +106,22 @@ serviceAccount:
 database:
   connectionStringPostgresPedido: postgresql://hexabase:HrUPNGC0Bsa065xZlaf7dja1YV1NSeiY@terraform-20240316190815212200000005.cbya420wgsnp.us-east-1.rds.amazonaws.com:5432/hexabase
   connectionStringDynamoDB: "https://dynamodb.us-east-1.amazonaws.com"
-  connectionStringPostgresPagamento: postgresql://hexabase:Djijs13rH6gHIRiauXGph7uCxCtyt7hW@terraform-20240311234822167400000006.cbya420wgsnp.us-east-1.rds.amazonaws.com:5432/hexabase
-  connectionString: postgresql://hexabase:HrUPNGC0Bsa065xZlaf7dja1YV1NSeiY@terraform-20240316190815212200000005.cbya420wgsnp.us-east-1.rds.amazonaws.com:5432/hexabase
+  connectionStringPostgresPagamento: "postgresql://hexabase:Djijs13rH6gHIRiauXGph7uCxCtyt7hW@terraform-20240311234822167400000006.cbya420wgsnp.us-east-1.rds.amazonaws.com:5432/hexabase"
+  db_password_hexafood_pagamento: "K6y1YnMtJhz6Brcs7PVKIjwR2yTOHgns"
+  db_host_hexafood_pagamento: "terraform-20240316190815212200000006.cbya420wgsnp.us-east-1.rds.amazonaws.com"
+  db_username_hexafood_pagamento: "hexabase_hexafood_pagamento"
+  db_database_hexafood_pagamento: "hexabase_pagamento"
+  db_dynamodb_endpoint_producao: "https://dynamodb.us-east-1.amazonaws.com"
+  # connectionString: postgresql://hexabase:HrUPNGC0Bsa065xZlaf7dja1YV1NSeiY@terraform-20240316190815212200000005.cbya420wgsnp.us-east-1.rds.amazonaws.com:5432/hexabase
 account:
   id: "905418037797"
-  AWS_ACCESS_KEY_ID: "ASIA5FTY63ISR6ZELTWF"
-  AWS_SECRET_ACCESS_KEY: "ci4udFB+cylK0wVQUYvK3WtrKPEY4t4A0uQkmvVr"
-  AWS_SESSION_TOKEN: "FwoGZXIvYXdzEMT//////////wEaDCcCQ1IFvk8UQ68tFCLIAYhVyS8P+ocCWdIB5O6P6riN/7JYTxCeqqu1mty9T7kMCXaia7zUJdymgsC8UHHj1dkw6MpKrt90mFLl3BHJY95Hk9CPRiUNtFOUvPdmDxjTIaNvNwSISwwDXKv2638zEJRnSn+5kkipEkcIiqQaRlwJGsoTc7kwiD8AcNBI/r6FjnAsx5hjYOE55a1gpO+5piueTCCaA0KReQaxxdmuwZ/hZDWZYiCDo1sKEN4Rvr8J8bUcuaEwbRjKGKd/4882k5IKI98qmff0KMCF268GMi0oIdib3/7Df6zEDDCuMbyhuIeabTn2UDCRZj6Uw119Lgk2J903pyxRnU6XYIY"
-  AWS_DEFAULT_REGION: us-east-1
+  AWS_ACCESS_KEY_ID: "ASIA5FTY63ISRSZO4VOB"
+  AWS_SECRET_ACCESS_KEY: "qENXf1WGTubApUh57BLH6gPXtvippM3fbyF+srir"
+  AWS_SESSION_TOKEN: "FwoGZXIvYXdzEPr//////////wEaDHm/7WuQUbA9hlunBCLIAVpnhbM9DUXv/w4dEHorN+5O5o4DaUfOEWeuwzpo38jPLXbcZ2WCFqqNbynKP+3B1OuAb+ckIbq6CL2Dxfh8068mxGpRVEC8xoS7UIguuj2AH1AfZdYbU6yqYGpOtcwQWUkmTXFHHDkbt1x1fhLPwCOIUpoF/pneFAtLjooE7SQ3gKY1Rdtvi5TSQAy4+A43eea9yKRQHviCwMwRjqUvnQBvYrOeUa7zUExGlkDuA7N8tb6kFW3RWxUnWbJKfO/cVM6Kn9wU6ksVKMeH568GMi07kanlQYZAnFP50EOHIlK0843/s4VSfvhC6IvX3GrYcMXmSmycUDyzL03e9b4="
+  AWS_DEFAULT_REGION: "us-east-1"
 queue:
   AWS_SQS_ENDPOINT: "https://sqs.us-east-1.amazonaws.com"
   AWS_SQS_NOVO_PEDIDO_QUEUE_NAME: "novo_pedido"
   AWS_SQS_PAGAMENTO_PROCESSADO_QUEUE_NAME: "pagamento_processado"
   AWS_SQS_PEDIDO_RECEBIDO_QUEUE_NAME: "pedido_recebido"
+  AWS_SQS_PEDIDO_FINALIZADO_QUEUE_NAME: "pedido_finalizado"

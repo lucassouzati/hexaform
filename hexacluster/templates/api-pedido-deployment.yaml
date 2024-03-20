@@ -54,6 +54,8 @@ spec:
               value: "{{ .Values.queue.AWS_SQS_PAGAMENTO_PROCESSADO_QUEUE_NAME}}"
             - name: AWS_SQS_PEDIDO_RECEBIDO_QUEUE_NAME
               value: "{{ .Values.queue.AWS_SQS_PEDIDO_RECEBIDO_QUEUE_NAME}}"
+            - name: AWS_SQS_PEDIDO_FINALIZADO_QUEUE_NAME
+              value: "{{ .Values.queue.AWS_SQS_PEDIDO_FINALIZADO_QUEUE_NAME}}"
           volumeMounts:
             - name: app-volume
               mountPath: /home/node/app/vol
