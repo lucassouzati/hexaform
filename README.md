@@ -17,6 +17,8 @@
 
 ## :boat: Sobre o projeto
 
+Link da apresentação: [Apresentação](https://drive.google.com/file/d/1PaygGSNMcbRqMYhJCiSnTNMCgA40KMo3/view?usp=sharing)
+
 Esse projeto faz parte do trabalho "Tech Challenge - Fase 05", ministrado no quinto módulo do curso de Pós Graduação Software Architecture da FIAP em parceria com a Alura.
 
 Para exercitar os conceitos apresentados nas matérias do curso, sendo elas SAGA Pattern, Desenvolvimento Seguro e Privacidade de Dados e Lei Geral de Proteção de Dados (LGPD), esse projeto foi atualizado a fim de abarcar os novos conteúdos. Dessa forma, cada microsservico do projeto foi alterado para implementar novas práticas aprendidas no módulo. Nesse repositório está o microsserviço de Pedidos. 
