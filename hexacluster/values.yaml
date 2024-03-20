@@ -1,19 +1,15 @@
 # Default values for hexacluster.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-
 replicaCount: 1
-
 image:
   repository: nginx
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
-
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
-
 # serviceAccount:
 #   # Specifies whether a service account should be created
 #   create: true
@@ -24,31 +20,27 @@ fullnameOverride: ""
 #   # The name of the service account to use.
 #   # If not set and create is true, a name is generated using the fullname template
 #   name: ""
-
 podAnnotations: {}
 podLabels: {}
-
 podSecurityContext: {}
-  # fsGroup: 2000
+# fsGroup: 2000
 
 securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
-
+# capabilities:
+#   drop:
+#   - ALL
+# readOnlyRootFilesystem: true
+# runAsNonRoot: true
+# runAsUser: 1000
 service:
   type: ClusterIP
   port: 80
-
 ingress:
   enabled: false
   className: ""
   annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  # kubernetes.io/ingress.class: nginx
+  # kubernetes.io/tls-acme: "true"
   hosts:
     - host: chart-example.local
       paths:
@@ -56,20 +48,19 @@ ingress:
           pathType: ImplementationSpecific
   tls: []
   #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
-
+#    hosts:
+#      - chart-example.local
 resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+# We usually recommend not to specify default resources and to leave this as a conscious
+# choice for the user. This also increases chances charts run on environments with little
+# resources, such as Minikube. If you do want to specify resources, uncomment the following
+# lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+# limits:
+#   cpu: 100m
+#   memory: 128Mi
+# requests:
+#   cpu: 100m
+#   memory: 128Mi
 
 autoscaling:
   enabled: false
@@ -77,7 +68,6 @@ autoscaling:
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
-
 # Additional volumes on the output Deployment definition.
 volumes: []
 # - name: foo
@@ -92,26 +82,46 @@ volumeMounts: []
 #   readOnly: true
 
 nodeSelector: {}
-
 tolerations: []
-
 affinity: {}
-
 api:
   pedido:
     name: hexafood-api-pedido
-    image: registry
+    image: "905418037797.dkr.ecr.us-east-1.amazonaws.com/hexafood_pedido"
     replicas: 2
-
   producao:
     name: hexafood-api-producao
-    image: registry
+    image: "905418037797.dkr.ecr.us-east-1.amazonaws.com/hexafood_producao"
     replicas: 2
-
+  pagamento:
+    name: hexafood-api-pagamento
+    image: "905418037797.dkr.ecr.us-east-1.amazonaws.com/hexafood_pagamento"
+    replicas: 2
 serviceAccount:
   create: true
   name: hexaform
   annotations:
     eks:
-      role_arn: "arn:aws:iam::339713020828:role/LabRole"
-
+      role_arn: "arn:aws:iam::905418037797:role/LabRole"
+database:
+  connectionStringPostgresPedido: postgresql://hexabase:HrUPNGC0Bsa065xZlaf7dja1YV1NSeiY@terraform-20240316190815212200000005.cbya420wgsnp.us-east-1.rds.amazonaws.com:5432/hexabase
+  connectionStringDynamoDB: "https://dynamodb.us-east-1.amazonaws.com"
+  connectionStringPostgresPagamento: "postgresql://hexabase:Djijs13rH6gHIRiauXGph7uCxCtyt7hW@terraform-20240311234822167400000006.cbya420wgsnp.us-east-1.rds.amazonaws.com:5432/hexabase"
+  db_password_hexafood_pagamento: "K6y1YnMtJhz6Brcs7PVKIjwR2yTOHgns"
+  db_host_hexafood_pagamento: "terraform-20240316190815212200000006.cbya420wgsnp.us-east-1.rds.amazonaws.com"
+  db_username_hexafood_pagamento: "hexabase_hexafood_pagamento"
+  db_database_hexafood_pagamento: "hexabase_pagamento"
+  db_dynamodb_endpoint_producao: "https://dynamodb.us-east-1.amazonaws.com"
+  # connectionString: postgresql://hexabase:HrUPNGC0Bsa065xZlaf7dja1YV1NSeiY@terraform-20240316190815212200000005.cbya420wgsnp.us-east-1.rds.amazonaws.com:5432/hexabase
+account:
+  id: "905418037797"
+  AWS_ACCESS_KEY_ID: ""
+  AWS_SECRET_ACCESS_KEY: ""
+  AWS_SESSION_TOKEN: ""
+  AWS_DEFAULT_REGION: "us-east-1"
+queue:
+  AWS_SQS_ENDPOINT: "https://sqs.us-east-1.amazonaws.com"
+  AWS_SQS_NOVO_PEDIDO_QUEUE_NAME: "novo_pedido"
+  AWS_SQS_PAGAMENTO_PROCESSADO_QUEUE_NAME: "pagamento_processado"
+  AWS_SQS_PEDIDO_RECEBIDO_QUEUE_NAME: "pedido_recebido"
+  AWS_SQS_PEDIDO_FINALIZADO_QUEUE_NAME: "pedido_finalizado"

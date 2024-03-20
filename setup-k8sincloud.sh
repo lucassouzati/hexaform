@@ -3,6 +3,8 @@
 # Parando a execução do script em caso de erro
 set -e
 
+source variables.sh
+
 # Definindo variáveis de ambiente necessárias
 export TF_CLOUD_ORGANIZATION="hexafood"
 # export TF_API_TOKEN="your_terraform_api_token_here" # Substitua pelo seu token real

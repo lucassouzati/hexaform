@@ -40,7 +40,7 @@ resource "aws_db_instance" "rds-db-instance-hexafood_pagamento" {
   db_name = var.db_name_hexafood_pagamento
 
   username = var.db_username_hexafood_pagamento
-  password = random_string.rds-db-password.result
+  password = random_string.rds-db-password-hexafood_pagamento.result
 
   vpc_security_group_ids = [var.default_security_group_id]
   db_subnet_group_name = var.db_subnet_group_name

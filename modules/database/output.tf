@@ -15,7 +15,7 @@ output "db_database" {
 }
 
 output "db_password_hexafood_pagamento" {
-    value = random_string.rds-db-password.result
+    value = random_string.rds-db-password-hexafood_pagamento.result
 }
 
 output "db_host_hexafood_pagamento" {

@@ -2,6 +2,10 @@ variable "env"{
   default = "dev"
 }
 
+variable "account_id" {
+  default = "905418037797"
+}
+
 variable "cluster_name" {
   default = "hexaform"
 }
@@ -16,15 +20,15 @@ variable "kubernetes_version" {
 
 variable "nodes_instances_type" {
   default = [
-    "t2.small"
+    "t2.medium",
   ]
 }
 
 variable "auto_scale_options" {
   default = {
-    min     = 2
-    max     = 4
-    desired = 2
+    min     = 4
+    max     = 6
+    desired = 4
   }
 }
 
@@ -76,8 +80,8 @@ variable "db_username_hexafood_pagamento" {
   default = "hexabase_hexafood_pagamento"
 }
 
-variable "lab_role_arn" {
-  default = "arn:aws:iam::339713020828:role/LabRole"
+locals {
+  lab_role_arn = "arn:aws:iam::${var.account_id}:role/LabRole"
 }
 
 variable "ecr_repository_name_hexafood_pedido"{
@@ -98,6 +102,9 @@ variable "pagamento_processado_queue"{
 }
 variable "pedido_recebido_queue"{
   default = "pedido_recebido"
+}
+variable "pedido_finalizado_queue"{
+  default = "pedido_finalizado"
 }
 variable "dynamodb_endpoint"{
   default = "https://dynamodb.us-east-1.amazonaws.com"
